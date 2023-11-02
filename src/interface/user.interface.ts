@@ -11,3 +11,7 @@ export interface User {
   role: role;
   post: Post[];
 }
+
+export interface Admin extends User {
+  post: Post[];
+}
