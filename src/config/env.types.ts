@@ -1,0 +1,19 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const POSTGRESS_DATABASE = process.env.POSTGRESS_DATABASE;
+const POSTGRESS_HOST = process.env.POSTGRESS_HOST;
+const POSTGRESS_USERNAME = process.env.POSTGRESS_USERNAME;
+const POSTGRESS_PASSWORD = process.env.POSTGRESS_PASSWORD;
+const POSTGRESS_PORT = process.env.POSTGRESS_PORT;
+const POSTGRESS_SSL = process.env.POSTGRESS_SSL;
+
+export {
+  POSTGRESS_DATABASE,
+  POSTGRESS_HOST,
+  POSTGRESS_USERNAME,
+  POSTGRESS_PASSWORD,
+  POSTGRESS_PORT,
+  POSTGRESS_SSL,
+};
