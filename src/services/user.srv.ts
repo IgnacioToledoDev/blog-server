@@ -5,15 +5,16 @@ import Admin from "../models/user.model";
 import { encrypt } from "../utils/handlePass";
 import { UserInput } from "../utils/types";
 import { roles } from "../utils/Enum";
+import UserModel from "../models/user.model";
 
 const postNewUseSrv = async (user: UserInput) => {
-  const checkIs = await Admin.findOne({ where: { email: user.email } });
+  const checkIs = await UserModel.findOne({ where: { email: user.email } });
   if (checkIs) return "already_user";
   if (user.role.toLowerCase() === roles[0]) return "user role not allowed";
 
   const { name, lastName, email, isAdmin, role } = user;
   const passHash: string = await encrypt(user.password);
-  const data = await Admin.create({
+  const data = await UserModel.create({
     name,
     lastName,
     email,
@@ -26,22 +27,22 @@ const postNewUseSrv = async (user: UserInput) => {
 };
 
 const getUsersSrv = async () => {
-  const admins = await Admin.findAll();
-  return admins;
+  const users = await UserModel.findAll();
+  return users;
 };
 
 const getUserSrv = async (id: number) => {
-  const user = Admin.findByPk(id);
+  const user = UserModel.findByPk(id);
   return user;
 };
 
 const updateUserSrv = async (id: string, user: User) => {
-  const updateUser = Admin.update({ ...user }, { where: { id: id } });
+  const updateUser = UserModel.update({ ...user }, { where: { id: id } });
   return updateUser;
 };
 
 const deleteUserSrv = async (id: string) => {
-  const deleteUser = Admin.destroy({ where: { id: parseInt(id) } });
+  const deleteUser = UserModel.destroy({ where: { id: parseInt(id) } });
   return deleteUser;
 };
 
