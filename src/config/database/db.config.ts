@@ -21,6 +21,7 @@ const password = POSTGRESS_PASSWORD as PostgressPassword;
 const sequelize = new Sequelize(database, user, password, {
   host: host,
   dialect: "postgres",
+  logging: false,
 });
 
 const databaseConnection = async () => {

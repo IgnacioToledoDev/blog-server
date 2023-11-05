@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { verifyToken } from "../utils/handleJWT";
 
-const checkJwt = (req: Request, res: Response, next: NextFunction) => {
+const checkJwtUser = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const jwtByUSer = req.headers.authorization || "";
-    const jwt = jwtByUSer?.split(" ").pop();
+    const jwtByUser = req.headers.authorization || "";
+    const jwt = jwtByUser?.split(" ").pop();
     const verify = verifyToken(jwt as string);
     if (!verify) res.send("No valid token").status(401);
     next();
@@ -13,4 +13,4 @@ const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { checkJwt };
+export { checkJwtUser };
