@@ -6,7 +6,7 @@ import { encrypt } from "../utils/handlePass";
 import { UserInput } from "../utils/types";
 import { roles } from "../utils/Enum";
 
-const postNewUseSrv = async (user: UserInput) => {
+const postNewAdminSrv = async (user: UserInput) => {
   const checkIs = await Admin.findOne({ where: { email: user.email } });
   if (checkIs) return "already_user";
   if (user.role.toLowerCase() === roles[0]) return "user role not allowed";
@@ -25,24 +25,30 @@ const postNewUseSrv = async (user: UserInput) => {
   return data;
 };
 
-const getUsersSrv = async () => {
+const getAdminsSrv = async () => {
   const admins = await Admin.findAll();
   return admins;
 };
 
-const getUserSrv = async (id: number) => {
+const getAdminSrv = async (id: number) => {
   const user = Admin.findByPk(id);
   return user;
 };
 
-const updateUserSrv = async (id: string, user: User) => {
+const updateAdminSrv = async (id: string, user: User) => {
   const updateUser = Admin.update({ ...user }, { where: { id: id } });
   return updateUser;
 };
 
-const deleteUserSrv = async (id: string) => {
-  const deleteUser = Admin.destroy({ where: { id: parseInt(id) } });
-  return deleteUser;
+const deleteAdminSrv = async (id: string) => {
+  const deleteAdmin = Admin.destroy({ where: { id: parseInt(id) } });
+  return deleteAdmin;
 };
 
-export { postNewUseSrv, getUserSrv, getUsersSrv, updateUserSrv, deleteUserSrv };
+export {
+  postNewAdminSrv,
+  getAdminsSrv,
+  getAdminSrv,
+  updateAdminSrv,
+  deleteAdminSrv,
+};
