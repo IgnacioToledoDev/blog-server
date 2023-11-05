@@ -9,9 +9,7 @@ import { roles } from "../utils/Enum";
 const postNewUseSrv = async (user: UserInput) => {
   const checkIs = await Admin.findOne({ where: { email: user.email } });
   if (checkIs) return "already_user";
-  if (user.role.toLowerCase() !== roles[0]) return "user role not allowed";
-  const countAdmin = await Admin.findAll();
-  if (countAdmin) return "Max limit";
+  if (user.role.toLowerCase() === roles[0]) return "user role not allowed";
 
   const { name, lastName, email, isAdmin, role } = user;
   const passHash: string = await encrypt(user.password);
