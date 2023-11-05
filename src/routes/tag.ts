@@ -6,17 +6,18 @@ import {
   getTagCtrl,
   getTagsCtrl,
 } from "../controllers/tag.ctrl";
+import { checkJwtUser } from "../middlewares/session";
 
 const router = Router();
 
-router.get("/", getTagsCtrl);
+router.get("/", checkJwtUser, getTagsCtrl);
 
-router.get("/:id", getTagCtrl);
+router.get("/:id", checkJwtUser, getTagCtrl);
 
-router.post("/", postTagCtrl);
+router.post("/", checkJwtUser, postTagCtrl);
 
-router.put("/:id", updateTagCtrl);
+router.put("/:id", checkJwtUser, updateTagCtrl);
 
-router.delete("/:id", deleteTagCtrl);
+router.delete("/:id", checkJwtUser, deleteTagCtrl);
 
 export { router };

@@ -1,5 +1,3 @@
-//change ctrl files to admin.ts
-
 import { Router } from "express";
 import {
   postUserCtrl,
@@ -8,6 +6,7 @@ import {
   updateUserCtrl,
   deleteUserCtrl,
 } from "../controllers/user.ctrl";
+import { checkJwtUser } from "../middlewares/session";
 
 const router = Router();
 
@@ -17,8 +16,8 @@ router.post("/", postUserCtrl);
 
 router.get("/:id", getUserCtrl);
 
-router.put("/:id", updateUserCtrl);
+router.put("/:id", checkJwtUser, updateUserCtrl);
 
-router.delete("/:id", deleteUserCtrl);
+router.delete("/:id", checkJwtUser, deleteUserCtrl);
 
 export { router };

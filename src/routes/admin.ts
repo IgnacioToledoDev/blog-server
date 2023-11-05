@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { checkJwtUser } from "../middlewares/session";
 
 const router = Router();
 
