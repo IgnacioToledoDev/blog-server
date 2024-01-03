@@ -1,6 +1,6 @@
 export interface Image {
   id: number;
-  name: string;
-  url: string;
+  filename: string | undefined;
+  path: any | undefined;
   postId: number;
 }

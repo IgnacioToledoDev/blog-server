@@ -5,7 +5,6 @@ import { router } from "./src/routes/index";
 import dbConnect from "./src/config/database/db.config";
 import helmet from "helmet";
 import limiter from "./src/middlewares/rateLimit";
-import bodyParser from "body-parser";
 import hpp from "hpp";
 
 dotenv.config();
@@ -15,7 +14,7 @@ const app: Application = express();
 
 app.use(limiter);
 app.use(cors());
-app.use(bodyParser.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(hpp());
 app.use(helmet());
 app.use(express.json());

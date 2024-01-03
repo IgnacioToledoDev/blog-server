@@ -1,8 +1,30 @@
+import { Console } from "console";
 import PostModel from "../models/post.model";
+import { ImageInput, PostInput } from "../utils/types";
+import { postNewImage } from "./image.srv";
 
-const postNewPostSrv = async (post: any) => {
-  const data = await PostModel.create({ ...post });
-  return data;
+const postNewPostSrv = async (post: PostInput, image: ImageInput) => {
+  if (!post) return "Not data on post param";
+  const { title, content, userId, tag } = post;
+  const { filename } = image;
+
+  const newPost = await PostModel.create({
+    title,
+    content,
+    image: filename,
+    userId,
+    tag,
+  });
+  console.log(newPost);
+  const findPost = PostModel.findOne({ where: { title: post.title } });
+  if (!findPost) console.log("Not found");
+
+  const imageLoading = await postNewImage(
+    image,
+    newPost.getDataValue(`${post.title}`)
+  );
+  console.log("Image save? ->", imageLoading);
+  return newPost;
 };
 
 const getPostsSrv = async () => {

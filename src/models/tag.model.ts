@@ -6,6 +6,4 @@ const TagModel = config.sq.define("tag", {
   postId: { type: DataTypes.INTEGER, allowNull: true },
 });
 
-console.log(TagModel.getAttributes());
-
 export default TagModel;

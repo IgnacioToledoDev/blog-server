@@ -7,6 +7,7 @@ import {
   updatePostCtrl,
 } from "../controllers/post.ctrl";
 import { checkJwtUser } from "../middlewares/session";
+import uploads from "../middlewares/multer";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ router.get("/", getPostsCtrl);
 
 router.get("/:id", getPostCtrl);
 
-router.post("/", checkJwtUser, postPostCtrl);
+router.post("/", checkJwtUser, uploads.single("image"), postPostCtrl);
 
 router.put("/:id", checkJwtUser, updatePostCtrl);
 

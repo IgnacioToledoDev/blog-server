@@ -11,12 +11,12 @@ import {
 } from "../services/user.srv";
 
 import { message } from "../utils/utils";
+import { generateToken } from "../utils/handleJWT";
 
 const getUserCtrl = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params;
     const users = await getUserSrv(parseInt(id));
-
     res.send(users);
   } catch (err) {
     handleHttp(res, message.concat(`${err}`));

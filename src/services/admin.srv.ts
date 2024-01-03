@@ -1,5 +1,3 @@
-//// this change to admin.srv.ts all content from user.srv.ts
-
 import { User } from "../interface/user.interface";
 import Admin from "../models/user.model";
 import { encrypt } from "../utils/handlePass";

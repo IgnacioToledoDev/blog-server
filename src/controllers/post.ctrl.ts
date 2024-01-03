@@ -7,6 +7,7 @@ import {
   postNewPostSrv,
   updatePostSrv,
 } from "../services/post.srv";
+import { ImageInput } from "../utils/types";
 
 const getPostCtrl = async ({ params }: Request, res: Response) => {
   try {
@@ -18,9 +19,13 @@ const getPostCtrl = async ({ params }: Request, res: Response) => {
   }
 };
 
-const postPostCtrl = async ({ body }: Request, res: Response) => {
+const postPostCtrl = async (req: Request, { body }: Request, res: Response) => {
   try {
-    const post = await postNewPostSrv(body);
+    const filename = req.file?.filename;
+    const path = req.file?.path;
+    const newImage: ImageInput = { filename: filename, path: path };
+    console.log("controlador", body);
+    const post = await postNewPostSrv(body, newImage);
     res.send(post);
   } catch (err) {
     message.concat(`${err}`);
@@ -49,7 +54,7 @@ const updatePostCtrl = async ({ params, body }: Request, res: Response) => {
 const deletePostCtrl = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params;
-    const post = await deletePostSrv(id);
+    await deletePostSrv(id);
     res.status(201).send("Post deleted");
   } catch (err) {
     message.concat(`${err}`);
